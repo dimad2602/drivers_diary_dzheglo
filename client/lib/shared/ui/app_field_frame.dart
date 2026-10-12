@@ -1,3 +1,4 @@
+import 'package:driver_diary/app/theme/app_motion.dart';
 import 'package:driver_diary/app/theme/theme_context.dart';
 import 'package:flutter/material.dart';
 
@@ -38,19 +39,29 @@ class AppFieldFrame extends StatelessWidget {
           ),
         ),
         child,
-        if (note != null)
-          Padding(
-            padding: const EdgeInsets.only(left: 4, top: 6),
-            child: Text(
-              note,
-              key: errorText != null ? const Key('field-error') : null,
-              style: text.bodySmall?.copyWith(
-                color: errorText != null
-                    ? colors.negative
-                    : colors.labelSecondary,
-              ),
-            ),
+        // Ошибка и подсказка появляются плавно: форма «раздвигается», а не прыгает.
+        AnimatedSize(
+          duration: AppMotion.fast,
+          curve: AppMotion.standard,
+          alignment: Alignment.topLeft,
+          child: SizedBox(
+            width: double.infinity,
+            child: note == null
+                ? null
+                : Padding(
+                    padding: const EdgeInsets.only(left: 4, top: 6),
+                    child: Text(
+                      note,
+                      key: errorText != null ? const Key('field-error') : null,
+                      style: text.bodySmall?.copyWith(
+                        color: errorText != null
+                            ? colors.negative
+                            : colors.labelSecondary,
+                      ),
+                    ),
+                  ),
           ),
+        ),
       ],
     );
   }

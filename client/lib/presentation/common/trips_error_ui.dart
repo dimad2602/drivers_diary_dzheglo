@@ -1,5 +1,6 @@
 import 'package:driver_diary/domain/errors/trips_error.dart';
 import 'package:driver_diary/generated/l10n.dart';
+import 'package:driver_diary/shared/storage/constants.dart';
 import 'package:flutter/material.dart';
 
 /// Тексты и значок для ошибок работы с поездками.
@@ -13,7 +14,7 @@ extension TripsErrorUi on TripsError {
   };
 
   String message(S l10n) => switch (this) {
-    TripsError.noConnection => l10n.errorNoConnectionMessage,
+    TripsError.noConnection => l10n.errorNoConnectionMessage(Constants.baseUrl),
     TripsError.validation => l10n.errorValidationMessage,
     TripsError.conflict => l10n.errorConflictMessage,
     TripsError.server => l10n.errorServerMessage,

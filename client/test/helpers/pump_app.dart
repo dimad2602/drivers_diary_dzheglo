@@ -38,7 +38,8 @@ Future<void> pumpRouterApp(
 /// Запускает [child] внутри MaterialApp с темой и локализацией приложения.
 ///
 /// [settle] = false нужен, когда на экране бесконечная анимация (спиннер) —
-/// иначе `pumpAndSettle` не дождётся конца.
+/// иначе `pumpAndSettle` не дождётся конца. [reducedMotion] включает системный
+/// режим «убрать анимации».
 Future<void> pumpApp(
   WidgetTester tester,
   Widget child, {
@@ -46,6 +47,7 @@ Future<void> pumpApp(
   ThemeMode themeMode = ThemeMode.light,
   bool scaffold = true,
   bool settle = true,
+  bool reducedMotion = false,
   Size size = const Size(600, 1000),
 }) async {
   tester.view.physicalSize = size;
@@ -54,6 +56,12 @@ Future<void> pumpApp(
 
   await tester.pumpWidget(
     MaterialApp(
+      builder: reducedMotion
+          ? (context, app) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(disableAnimations: true),
+              child: app!,
+            )
+          : null,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,

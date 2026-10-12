@@ -28,7 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(minutes) => "${minutes} мин";
 
-  static String m4(count) =>
+  static String m4(address) =>
+      "Не удалось подключиться к ${address}. Проверьте подключение и убедитесь, что backend запущен.";
+
+  static String m5(count) =>
       "${Intl.plural(count, one: '${count} поездка', few: '${count} поездки', many: '${count} поездок', other: '${count} поездки')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -66,9 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorConflictTitle": MessageLookupByLibrary.simpleMessage(
       "Поездка уже существует",
     ),
-    "errorNoConnectionMessage": MessageLookupByLibrary.simpleMessage(
-      "Проверьте подключение и убедитесь, что backend запущен.",
-    ),
+    "errorNoConnectionMessage": m4,
     "errorNoConnectionTitle": MessageLookupByLibrary.simpleMessage(
       "Нет связи с сервером",
     ),
@@ -122,6 +123,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
     "themeSystem": MessageLookupByLibrary.simpleMessage("Как в системе"),
     "tripAdded": MessageLookupByLibrary.simpleMessage("Поездка добавлена"),
-    "tripsCountLabel": m4,
+    "tripsCountLabel": m5,
   };
 }

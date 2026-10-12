@@ -9,6 +9,7 @@ import 'package:driver_diary/domain/models/payment_method.dart';
 import 'package:driver_diary/shared/models/result.dart';
 import 'package:driver_diary/swagger_generated_code/driver_diary.swagger.dart'
     as sw;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -250,6 +251,20 @@ void main() {
           _errorOf(await repo.addTrip(makeTrip())),
           TripsError.noConnection,
         );
+      });
+
+      test('настоящая причина сбоя пишется в консоль отладки', () async {
+        final logged = <String>[];
+        final originalDebugPrint = debugPrint;
+        debugPrint = (message, {wrapWidth}) => logged.add(message ?? '');
+        addTearDown(() => debugPrint = originalDebugPrint);
+        when(() => api.createTrip(body: any(named: 'body')))
+            .thenThrow(const SocketException('Connection refused'));
+
+        await repo.addTrip(makeTrip());
+
+        expect(logged, hasLength(1));
+        expect(logged.single, contains('Connection refused'));
       });
     });
   });

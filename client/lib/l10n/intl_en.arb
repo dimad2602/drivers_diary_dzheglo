@@ -48,7 +48,7 @@
   "languageSystem": "System",
   "actionRefresh": "Refresh",
   "errorNoConnectionTitle": "Can't reach the server",
-  "errorNoConnectionMessage": "Check your connection and make sure the backend is running.",
+  "errorNoConnectionMessage": "Couldn't connect to {address}. Check your connection and make sure the backend is running.",
   "errorValidationTitle": "Data rejected",
   "errorValidationMessage": "The server did not accept the values. Check them and try again.",
   "errorConflictTitle": "Trip already exists",

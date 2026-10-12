@@ -1,3 +1,4 @@
+import 'package:driver_diary/app/theme/app_motion.dart';
 import 'package:driver_diary/app/theme/theme_context.dart';
 import 'package:driver_diary/generated/l10n.dart';
 import 'package:driver_diary/shared/ui/app_card_section.dart';
@@ -50,17 +51,21 @@ class DaySwitcher extends StatelessWidget {
                   highlightColor: colors.fillSecondary,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(_title(context, l10n), style: text.titleMedium),
-                        Text(
-                          context.fullDate(date),
-                          style: text.bodySmall?.copyWith(
-                            color: colors.labelSecondary,
+                    child: AnimatedSwitcher(
+                      duration: AppMotion.fast,
+                      child: Column(
+                        key: ValueKey(date),
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(_title(context, l10n), style: text.titleMedium),
+                          Text(
+                            context.fullDate(date),
+                            style: text.bodySmall?.copyWith(
+                              color: colors.labelSecondary,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

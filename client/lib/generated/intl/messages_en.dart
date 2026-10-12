@@ -28,7 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(minutes) => "${minutes} min";
 
-  static String m4(count) =>
+  static String m4(address) =>
+      "Couldn\'t connect to ${address}. Check your connection and make sure the backend is running.";
+
+  static String m5(count) =>
       "${Intl.plural(count, one: '${count} trip', other: '${count} trips')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -66,9 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorConflictTitle": MessageLookupByLibrary.simpleMessage(
       "Trip already exists",
     ),
-    "errorNoConnectionMessage": MessageLookupByLibrary.simpleMessage(
-      "Check your connection and make sure the backend is running.",
-    ),
+    "errorNoConnectionMessage": m4,
     "errorNoConnectionTitle": MessageLookupByLibrary.simpleMessage(
       "Can\'t reach the server",
     ),
@@ -120,6 +121,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "themeLight": MessageLookupByLibrary.simpleMessage("Light"),
     "themeSystem": MessageLookupByLibrary.simpleMessage("System"),
     "tripAdded": MessageLookupByLibrary.simpleMessage("Trip added"),
-    "tripsCountLabel": m4,
+    "tripsCountLabel": m5,
   };
 }

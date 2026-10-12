@@ -1,7 +1,12 @@
+import 'dart:io' show Platform;
+
 import 'package:driver_diary/shared/storage/env/env.dart';
+import 'package:driver_diary/shared/utils/base_url.dart';
 
 abstract final class Constants {
-  static String get baseUrl => Env.baseUrl;
+  /// Адрес backend из `.env` с учётом платформы (см. [resolveBaseUrl]).
+  static String get baseUrl =>
+      resolveBaseUrl(Env.baseUrl, isAndroid: Platform.isAndroid);
 
   static const String currencySymbol = '₸';
 

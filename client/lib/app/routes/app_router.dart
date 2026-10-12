@@ -2,6 +2,7 @@ import 'package:driver_diary/app/routes/app_routes.dart';
 import 'package:driver_diary/presentation/features/add_trip/add_trip_page.dart';
 import 'package:driver_diary/presentation/features/diary/diary_page.dart';
 import 'package:driver_diary/presentation/features/settings/settings_page.dart';
+import 'package:driver_diary/shared/ui/animations/animations.dart';
 import 'package:driver_diary/shared/utils/date_formatter.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,17 +12,22 @@ abstract final class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.diary,
-        builder: (context, state) => const DiaryPage(),
+        pageBuilder: (context, state) =>
+            fadePage(key: state.pageKey, child: const DiaryPage()),
       ),
       GoRoute(
         path: AppRoutes.settings,
-        builder: (context, state) => const SettingsPage(),
+        pageBuilder: (context, state) =>
+            fadePage(key: state.pageKey, child: const SettingsPage()),
       ),
       GoRoute(
         path: AppRoutes.addTrip,
         // Дневник передаёт открытый день, форма стартует с него.
-        builder: (context, state) => AddTripPage(
-          initialDate: state.extra as DateTime? ?? dateOnly(DateTime.now()),
+        pageBuilder: (context, state) => fadePage(
+          key: state.pageKey,
+          child: AddTripPage(
+            initialDate: state.extra as DateTime? ?? dateOnly(DateTime.now()),
+          ),
         ),
       ),
     ],

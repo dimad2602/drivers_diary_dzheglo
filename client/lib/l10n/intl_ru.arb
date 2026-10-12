@@ -48,7 +48,7 @@
   "languageSystem": "Как в системе",
   "actionRefresh": "Обновить",
   "errorNoConnectionTitle": "Нет связи с сервером",
-  "errorNoConnectionMessage": "Проверьте подключение и убедитесь, что backend запущен.",
+  "errorNoConnectionMessage": "Не удалось подключиться к {address}. Проверьте подключение и убедитесь, что backend запущен.",
   "errorValidationTitle": "Данные не приняты",
   "errorValidationMessage": "Сервер не принял значения. Проверьте их и повторите.",
   "errorConflictTitle": "Поездка уже существует",

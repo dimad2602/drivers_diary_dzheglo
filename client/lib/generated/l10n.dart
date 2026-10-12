@@ -392,13 +392,13 @@ class S {
     );
   }
 
-  /// `Check your connection and make sure the backend is running.`
-  String get errorNoConnectionMessage {
+  /// `Couldn't connect to {address}. Check your connection and make sure the backend is running.`
+  String errorNoConnectionMessage(Object address) {
     return Intl.message(
-      'Check your connection and make sure the backend is running.',
+      'Couldn\'t connect to $address. Check your connection and make sure the backend is running.',
       name: 'errorNoConnectionMessage',
       desc: '',
-      args: [],
+      args: [address],
     );
   }
 

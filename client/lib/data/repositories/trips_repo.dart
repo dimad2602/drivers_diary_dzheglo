@@ -12,6 +12,7 @@ import 'package:driver_diary/domain/repositories/i_trips_repo.dart';
 import 'package:driver_diary/shared/models/result.dart';
 import 'package:driver_diary/swagger_generated_code/driver_diary.swagger.dart'
     as sw;
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class TripsRepo implements ITripsRepo {
@@ -59,16 +60,25 @@ class TripsRepo implements ITripsRepo {
       final body = response.body;
       if (response.isSuccessful && body != null) return Success(body);
       return Failure(_errorForStatus(response.statusCode));
-    } on TimeoutException {
+    } on TimeoutException catch (e) {
+      _logFailure(e);
       return const Failure(TripsError.noConnection);
-    } on SocketException {
+    } on SocketException catch (e) {
+      _logFailure(e);
       return const Failure(TripsError.noConnection);
-    } on http.ClientException {
+    } on http.ClientException catch (e) {
+      _logFailure(e);
       return const Failure(TripsError.noConnection);
-    } catch (_) {
+    } catch (e) {
+      _logFailure(e);
       return const Failure(TripsError.unknown);
     }
   }
+
+  /// На экране сбой выглядит одинаково («нет связи»), а причины разные: адрес, брандмауэр,
+  /// запрет HTTP. Настоящее исключение пишем в консоль отладки.
+  void _logFailure(Object error) =>
+      debugPrint('TripsRepo: запрос не удался: $error');
 
   /// Ответ, который не удалось разобрать (например, неожиданный формат), — это `unknown`.
   Result<T, TripsError> _map<T extends Object>(T Function() convert) {

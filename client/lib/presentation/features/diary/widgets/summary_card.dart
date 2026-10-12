@@ -5,6 +5,7 @@ import 'package:driver_diary/domain/models/payment_method.dart';
 import 'package:driver_diary/generated/l10n.dart';
 import 'package:driver_diary/presentation/common/payment_method_ui.dart';
 import 'package:driver_diary/presentation/features/diary/widgets/payment_split_bar.dart';
+import 'package:driver_diary/shared/ui/animations/animations.dart';
 import 'package:driver_diary/shared/ui/app_card_section.dart';
 import 'package:driver_diary/shared/utils/format_context.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,13 @@ class SummaryCard extends StatelessWidget {
             FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
-              child: Text(
-                context.money(summary.net),
-                key: const Key('summary-net'),
-                style: text.displayLarge,
+              child: AnimatedCount(
+                value: summary.net,
+                builder: (context, value) => Text(
+                  context.money(value),
+                  key: const Key('summary-net'),
+                  style: text.displayLarge,
+                ),
               ),
             ),
             const SizedBox(height: 16),

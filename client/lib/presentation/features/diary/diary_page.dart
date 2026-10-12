@@ -11,6 +11,7 @@ import 'package:driver_diary/presentation/features/diary/widgets/diary_empty.dar
 import 'package:driver_diary/presentation/features/diary/widgets/diary_error.dart';
 import 'package:driver_diary/presentation/features/diary/widgets/summary_card.dart';
 import 'package:driver_diary/presentation/features/diary/widgets/trips_list.dart';
+import 'package:driver_diary/shared/ui/animations/animations.dart';
 import 'package:driver_diary/shared/ui/app_spinner.dart';
 import 'package:driver_diary/shared/ui/page_padding.dart';
 import 'package:flutter/material.dart';
@@ -141,13 +142,21 @@ class _Content extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<DiaryBloc>();
 
+    // Каждый раз, когда день заходит в состояние «загружен», блоки появляются заново:
+    // смена дня всегда проходит через загрузку, так что виджеты пересоздаются.
     return state.map(
-      loading: (_) => const Center(child: AppSpinner()),
-      failure: (s) => Center(
-        child: SingleChildScrollView(
-          child: DiaryError(
-            error: s.error,
-            onRetry: () => bloc.add(const DiaryEvent.reloadRequested()),
+      // Задержка перед спиннером: быстрые ответы проходят без мигания.
+      loading: (_) => const FadeIn(
+        delay: Duration(milliseconds: 150),
+        child: Center(child: AppSpinner()),
+      ),
+      failure: (s) => FadeIn(
+        child: Center(
+          child: SingleChildScrollView(
+            child: DiaryError(
+              error: s.error,
+              onRetry: () => bloc.add(const DiaryEvent.reloadRequested()),
+            ),
           ),
         ),
       ),
@@ -163,15 +172,20 @@ class _Content extends StatelessWidget {
           padding: pagePadding(context).copyWith(bottom: 96),
           children: [
             if (s.diary.summary.isEmpty)
-              const Padding(
-                padding: EdgeInsets.only(top: 48),
-                child: DiaryEmpty(),
+              const FadeIn(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 48),
+                  child: DiaryEmpty(),
+                ),
               )
-            else ...[
-              SummaryCard(summary: s.diary.summary),
-              const SizedBox(height: 24),
-              TripsList(trips: s.diary.trips),
-            ],
+            else
+              StaggeredList(
+                spacing: 24,
+                children: [
+                  SummaryCard(summary: s.diary.summary),
+                  TripsList(trips: s.diary.trips),
+                ],
+              ),
           ],
         ),
       ),
