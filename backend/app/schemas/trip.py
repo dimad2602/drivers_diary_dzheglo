@@ -1,6 +1,28 @@
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, ValidationInfo, field_validator
+from typing import Annotated
+
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    ValidationInfo,
+    WithJsonSchema,
+    field_validator,
+)
 
 from app.schemas.payment import PaymentMethod
+
+# В OpenAPI момент времени описан как строка, а не `format: date-time`: Dart-генератор клиента
+# превратил бы её в DateTime и потерял смещение пояса (+05:00), по которому считается день поездки.
+IsoDateTime = Annotated[
+    AwareDatetime,
+    WithJsonSchema(
+        {
+            "type": "string",
+            "examples": ["2026-10-01T08:10:00+05:00"],
+        }
+    ),
+]
 
 
 class TripCreate(BaseModel):
@@ -15,8 +37,8 @@ class TripCreate(BaseModel):
         description="Уникальный идентификатор. Повторная отправка с тем же id не создаёт дубль.",
         examples=["t1"],
     )
-    start: AwareDatetime = Field(description="Начало поездки (ISO 8601 со смещением пояса)")
-    end: AwareDatetime = Field(description="Окончание поездки, строго позже начала")
+    start: IsoDateTime = Field(description="Начало поездки, ISO 8601 со смещением пояса")
+    end: IsoDateTime = Field(description="Окончание поездки, ISO 8601, строго позже начала")
     amount: int = Field(gt=0, description="Сумма поездки, целое число больше нуля")
     payment: PaymentMethod
     commission: int = Field(ge=0, description="Комиссия, от 0 до суммы поездки включительно")
