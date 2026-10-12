@@ -1,11 +1,13 @@
 """Защита от дублей: повторная отправка той же поездки не создаёт вторую запись."""
 
 import datetime as dt
+from collections.abc import Iterator
 from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+from sqlalchemy import Engine
 
 from app.core.config import Settings
 from app.db.base import Base
@@ -17,6 +19,15 @@ from app.services.trip_service import TripConflictError, TripService
 from tests.factories import ALMATY, make_create, trip_payload
 
 DAY = "2026-10-01"
+
+
+@pytest.fixture
+def engine(settings: Settings) -> Iterator[Engine]:
+    """Своя БД для тестов сервиса без HTTP; соединение закрывается после теста."""
+    engine = create_db_engine(settings.database_url)
+    Base.metadata.create_all(engine)
+    yield engine
+    engine.dispose()
 
 
 def _count_trips(client: TestClient) -> int:
@@ -96,9 +107,7 @@ def test_different_ids_with_same_content_are_separate_trips(client: TestClient):
     assert _count_trips(client) == 2
 
 
-def test_service_returns_created_flag(settings: Settings):
-    engine = create_db_engine(settings.database_url)
-    Base.metadata.create_all(engine)
+def test_service_returns_created_flag(engine: Engine):
     with create_session_factory(engine)() as session:
         service = TripService(TripRepository(session))
 
@@ -124,9 +133,7 @@ class _BlindRepository(TripRepository):
         return super().get(trip_id)
 
 
-def test_race_between_check_and_insert_is_resolved_by_primary_key(settings: Settings):
-    engine = create_db_engine(settings.database_url)
-    Base.metadata.create_all(engine)
+def test_race_between_check_and_insert_is_resolved_by_primary_key(engine: Engine):
     factory = create_session_factory(engine)
     with factory() as session:
         TripService(TripRepository(session)).add_trip(make_create(id="t1"))
@@ -143,7 +150,6 @@ def test_concurrent_identical_requests_create_exactly_one_trip(tmp_path):
     settings = Settings(
         _env_file=None,
         database_url=f"sqlite:///{(tmp_path / 'race.db').as_posix()}",
-        api_key="",
         seed_on_start=False,
     )
     app: FastAPI = create_app(settings)

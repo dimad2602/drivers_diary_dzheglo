@@ -278,18 +278,10 @@
         "title": "ValidationError",
         "type": "object"
       }
-    },
-    "securitySchemes": {
-      "APIKeyHeader": {
-        "description": "Ключ доступа. Если на сервере `API_KEY` пуст, проверка отключена.",
-        "in": "header",
-        "name": "X-API-Key",
-        "type": "apiKey"
-      }
     }
   },
   "info": {
-    "description": "\nAPI дневника смен водителя: поездки за выбранный день и сводка за день.\n\n* Все запросы к `/api/v1` требуют заголовок **X-API-Key** (кнопка *Authorize*).\n* `POST /trips` идемпотентен: `id` поездки задаёт клиент, повтор не создаёт дубль.\n* День определяется по дате начала поездки в её собственном часовом поясе.\n* «На руки» = выручка − комиссия.\n",
+    "description": "\nAPI дневника смен водителя: поездки за выбранный день и сводка за день.\n\n* `POST /trips` идемпотентен: `id` поездки задаёт клиент, повтор не создаёт дубль.\n* День определяется по дате начала поездки в её собственном часовом поясе.\n* «На руки» = выручка − комиссия.\n",
     "title": "Driver Diary API",
     "version": "1.0.0"
   },
@@ -327,16 +319,6 @@
             },
             "description": "Successful Response"
           },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
           "422": {
             "content": {
               "application/json": {
@@ -348,11 +330,6 @@
             "description": "Validation Error"
           }
         },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
         "summary": "Сводка за день",
         "tags": [
           "summary"
@@ -395,16 +372,6 @@
             },
             "description": "Successful Response"
           },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
           "422": {
             "content": {
               "application/json": {
@@ -416,11 +383,6 @@
             "description": "Validation Error"
           }
         },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
         "summary": "Поездки за день",
         "tags": [
           "trips"
@@ -460,16 +422,6 @@
             },
             "description": "Поездка создана"
           },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
           "409": {
             "content": {
               "application/json": {
@@ -491,11 +443,6 @@
             "description": "Validation Error"
           }
         },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
         "summary": "Добавить поездку",
         "tags": [
           "trips"

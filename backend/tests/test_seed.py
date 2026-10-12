@@ -15,7 +15,6 @@ SEED_FILE = BACKEND_DIR / "data" / "trips.json"
 def _settings(tmp_path: Path, **overrides) -> Settings:
     values = {
         "database_url": f"sqlite:///{(tmp_path / 'seed.db').as_posix()}",
-        "api_key": "",
         "seed_on_start": True,
         "seed_file": SEED_FILE,
     }

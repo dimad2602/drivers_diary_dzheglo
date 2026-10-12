@@ -26,7 +26,7 @@ def test_operation_ids_are_stable(client: TestClient):
 def test_create_trip_documents_all_outcomes(client: TestClient):
     responses = _schema(client)["paths"]["/api/v1/trips"]["post"]["responses"]
 
-    assert set(responses) == {"200", "201", "401", "409", "422"}
+    assert set(responses) == {"200", "201", "409", "422"}
 
 
 def test_domain_schemas_have_no_nullable_fields(client: TestClient):

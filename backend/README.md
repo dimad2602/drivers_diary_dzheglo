@@ -10,7 +10,7 @@ PowerShell (Windows):
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -e ".[dev]"
-Copy-Item .env.example .env
+Copy-Item .env.example .env          # необязательно
 uvicorn app.main:app --reload
 ```
 
@@ -20,11 +20,11 @@ bash (Linux / macOS / Git Bash):
 python -m venv .venv
 source .venv/bin/activate            # Git Bash на Windows: source .venv/Scripts/activate
 pip install -e ".[dev]"
-cp .env.example .env
+cp .env.example .env                 # необязательно
 uvicorn app.main:app --reload
 ```
 
-Swagger UI: http://localhost:8000/docs (кнопка **Authorize**, ключ из `.env`, по умолчанию `dev-api-key`).
+Swagger UI: http://localhost:8000/docs.
 
 ## Тесты и утилиты
 

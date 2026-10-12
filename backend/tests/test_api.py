@@ -125,3 +125,9 @@ def test_date_parameter_is_required_and_validated(client: TestClient):
         assert client.get(path).status_code == 422
         assert client.get(path, params={"date": "not-a-date"}).status_code == 422
         assert client.get(path, params={"date": "2026-13-40"}).status_code == 422
+
+
+def test_health_and_docs_are_available(client: TestClient):
+    assert client.get("/health").json() == {"status": "ok"}
+    assert client.get("/docs").status_code == 200
+    assert client.get("/openapi.json").status_code == 200
