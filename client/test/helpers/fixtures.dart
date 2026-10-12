@@ -4,6 +4,7 @@ import 'package:driver_diary/domain/models/offset_date_time.dart';
 import 'package:driver_diary/domain/models/payment_breakdown.dart';
 import 'package:driver_diary/domain/models/payment_method.dart';
 import 'package:driver_diary/domain/models/trip.dart';
+import 'package:driver_diary/domain/models/trip_draft.dart';
 
 const almaty = Duration(hours: 5);
 
@@ -22,6 +23,22 @@ Trip makeTrip({
 }) {
   return Trip(
     id: id,
+    start: start ?? at(1, 8, 10),
+    end: end ?? at(1, 8, 32),
+    amount: amount,
+    payment: payment,
+    commission: commission,
+  );
+}
+
+TripDraft makeDraft({
+  OffsetDateTime? start,
+  OffsetDateTime? end,
+  int amount = 2400,
+  PaymentMethod payment = PaymentMethod.card,
+  int commission = 360,
+}) {
+  return TripDraft(
     start: start ?? at(1, 8, 10),
     end: end ?? at(1, 8, 32),
     amount: amount,

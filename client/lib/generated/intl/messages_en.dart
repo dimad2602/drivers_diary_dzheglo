@@ -20,20 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(hours) => "${hours} h";
+  static String m0(percent) => "${percent}% of the amount, you can change it";
 
-  static String m1(hours, minutes) => "${hours} h ${minutes} min";
+  static String m1(hours) => "${hours} h";
 
-  static String m2(minutes) => "${minutes} min";
+  static String m2(hours, minutes) => "${hours} h ${minutes} min";
 
-  static String m3(count) =>
+  static String m3(minutes) => "${minutes} min";
+
+  static String m4(count) =>
       "${Intl.plural(count, one: '${count} trip', other: '${count} trips')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "actionPickTime": MessageLookupByLibrary.simpleMessage("Pick time"),
     "actionRefresh": MessageLookupByLibrary.simpleMessage("Refresh"),
     "actionRetry": MessageLookupByLibrary.simpleMessage("Retry"),
+    "actionSave": MessageLookupByLibrary.simpleMessage("Save"),
+    "addTripAction": MessageLookupByLibrary.simpleMessage("Add trip"),
+    "addTripTitle": MessageLookupByLibrary.simpleMessage("New trip"),
     "appTitle": MessageLookupByLibrary.simpleMessage("Driver Diary"),
+    "commissionAutoHint": m0,
     "dayNext": MessageLookupByLibrary.simpleMessage("Next day"),
     "dayPick": MessageLookupByLibrary.simpleMessage("Choose a day"),
     "dayPrevious": MessageLookupByLibrary.simpleMessage("Previous day"),
@@ -49,9 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "diaryRevenue": MessageLookupByLibrary.simpleMessage("Revenue"),
     "diaryTripsCount": MessageLookupByLibrary.simpleMessage("Trips"),
     "diaryTripsHeader": MessageLookupByLibrary.simpleMessage("Trips"),
-    "durationHours": m0,
-    "durationHoursMinutes": m1,
-    "durationMinutes": m2,
+    "durationHours": m1,
+    "durationHoursMinutes": m2,
+    "durationMinutes": m3,
+    "endNextDayHint": MessageLookupByLibrary.simpleMessage("Next day"),
     "errorConflictMessage": MessageLookupByLibrary.simpleMessage(
       "A trip with this ID is already saved with different data.",
     ),
@@ -86,8 +94,30 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorValidationTitle": MessageLookupByLibrary.simpleMessage(
       "Data rejected",
     ),
+    "fieldAmount": MessageLookupByLibrary.simpleMessage("Amount"),
+    "fieldCommission": MessageLookupByLibrary.simpleMessage("Commission"),
+    "fieldDate": MessageLookupByLibrary.simpleMessage("Date"),
+    "fieldEnd": MessageLookupByLibrary.simpleMessage("End"),
+    "fieldPayment": MessageLookupByLibrary.simpleMessage("Payment method"),
+    "fieldStart": MessageLookupByLibrary.simpleMessage("Start"),
+    "formAmountPositive": MessageLookupByLibrary.simpleMessage(
+      "Amount must be greater than zero",
+    ),
+    "formCommissionExceeds": MessageLookupByLibrary.simpleMessage(
+      "Commission can\'t exceed the amount",
+    ),
+    "formEndAfterStart": MessageLookupByLibrary.simpleMessage(
+      "End must be later than start",
+    ),
+    "formInvalid": MessageLookupByLibrary.simpleMessage("Enter a valid number"),
+    "formInvalidTime": MessageLookupByLibrary.simpleMessage(
+      "Enter time as HH:MM, for example 08:30",
+    ),
+    "formRequired": MessageLookupByLibrary.simpleMessage("Required field"),
+    "hintTimeFormat": MessageLookupByLibrary.simpleMessage("HH:MM"),
     "paymentCard": MessageLookupByLibrary.simpleMessage("Card"),
     "paymentCash": MessageLookupByLibrary.simpleMessage("Cash"),
-    "tripsCountLabel": m3,
+    "tripAdded": MessageLookupByLibrary.simpleMessage("Trip added"),
+    "tripsCountLabel": m4,
   };
 }

@@ -54,6 +54,12 @@ abstract final class AppTheme {
         surfaceTintColor: Colors.transparent,
       ),
       timePickerTheme: TimePickerThemeData(backgroundColor: c.backgroundCard),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: c.accent,
+        foregroundColor: c.onAccent,
+        shape: const StadiumBorder(),
+        extendedTextStyle: textTheme.labelLarge,
+      ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: c.labelPrimary,

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:driver_diary/app/di/locator.dart';
+import 'package:driver_diary/app/routes/app_routes.dart';
+import 'package:driver_diary/domain/models/trip.dart';
 import 'package:driver_diary/generated/l10n.dart';
 import 'package:driver_diary/presentation/bloc/diary/diary_bloc.dart';
 import 'package:driver_diary/presentation/common/trips_error_ui.dart';
@@ -13,6 +15,7 @@ import 'package:driver_diary/shared/ui/app_spinner.dart';
 import 'package:driver_diary/shared/ui/page_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 /// Точка входа маршрута: создаёт Bloc дня и сразу загружает данные.
 class DiaryPage extends StatelessWidget {
@@ -61,6 +64,11 @@ class DiaryView extends StatelessWidget {
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => _addTrip(context),
+          icon: const Icon(Icons.add),
+          label: Text(l10n.addTripAction),
+        ),
         body: BlocBuilder<DiaryBloc, DiaryState>(
           builder: (context, state) {
             return Column(
@@ -87,11 +95,31 @@ class DiaryView extends StatelessWidget {
     );
   }
 
+  /// Открывает форму на выбранном дне; после сохранения переходит на день новой поездки.
+  Future<void> _addTrip(BuildContext context) async {
+    final bloc = context.read<DiaryBloc>();
+    final messenger = ScaffoldMessenger.of(context);
+    final message = S.of(context).tripAdded;
+
+    final trip = await context.push<Trip>(
+      AppRoutes.addTrip,
+      extra: bloc.state.date,
+    );
+    if (trip == null) return;
+
+    // Поездка могла быть добавлена на другой день — показываем именно его.
+    bloc.add(DiaryEvent.dateSelected(trip.start.wallDate));
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
   Future<void> _pickDate(BuildContext context) async {
     final bloc = context.read<DiaryBloc>();
     final picked = await showDatePicker(
       context: context,
       initialDate: bloc.state.date,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       firstDate: DateTime(2020),
       lastDate: bloc.today,
     );
@@ -126,7 +154,8 @@ class _Content extends StatelessWidget {
         },
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: pagePadding(context),
+          // Снизу запас под кнопку «Добавить поездку».
+          padding: pagePadding(context).copyWith(bottom: 96),
           children: [
             if (s.diary.summary.isEmpty)
               const Padding(

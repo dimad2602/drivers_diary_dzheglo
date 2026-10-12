@@ -20,20 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(hours) => "${hours} ч";
+  static String m0(percent) => "${percent}% от суммы, можно изменить";
 
-  static String m1(hours, minutes) => "${hours} ч ${minutes} мин";
+  static String m1(hours) => "${hours} ч";
 
-  static String m2(minutes) => "${minutes} мин";
+  static String m2(hours, minutes) => "${hours} ч ${minutes} мин";
 
-  static String m3(count) =>
+  static String m3(minutes) => "${minutes} мин";
+
+  static String m4(count) =>
       "${Intl.plural(count, one: '${count} поездка', few: '${count} поездки', many: '${count} поездок', other: '${count} поездки')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "actionPickTime": MessageLookupByLibrary.simpleMessage("Выбрать время"),
     "actionRefresh": MessageLookupByLibrary.simpleMessage("Обновить"),
     "actionRetry": MessageLookupByLibrary.simpleMessage("Повторить"),
+    "actionSave": MessageLookupByLibrary.simpleMessage("Сохранить"),
+    "addTripAction": MessageLookupByLibrary.simpleMessage("Добавить поездку"),
+    "addTripTitle": MessageLookupByLibrary.simpleMessage("Новая поездка"),
     "appTitle": MessageLookupByLibrary.simpleMessage("Дневник водителя"),
+    "commissionAutoHint": m0,
     "dayNext": MessageLookupByLibrary.simpleMessage("Следующий день"),
     "dayPick": MessageLookupByLibrary.simpleMessage("Выбрать день"),
     "dayPrevious": MessageLookupByLibrary.simpleMessage("Предыдущий день"),
@@ -49,9 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "diaryRevenue": MessageLookupByLibrary.simpleMessage("Выручка"),
     "diaryTripsCount": MessageLookupByLibrary.simpleMessage("Поездок"),
     "diaryTripsHeader": MessageLookupByLibrary.simpleMessage("Поездки"),
-    "durationHours": m0,
-    "durationHoursMinutes": m1,
-    "durationMinutes": m2,
+    "durationHours": m1,
+    "durationHoursMinutes": m2,
+    "durationMinutes": m3,
+    "endNextDayHint": MessageLookupByLibrary.simpleMessage("На следующий день"),
     "errorConflictMessage": MessageLookupByLibrary.simpleMessage(
       "Поездка с таким идентификатором уже сохранена с другими данными.",
     ),
@@ -86,8 +94,32 @@ class MessageLookup extends MessageLookupByLibrary {
     "errorValidationTitle": MessageLookupByLibrary.simpleMessage(
       "Данные не приняты",
     ),
+    "fieldAmount": MessageLookupByLibrary.simpleMessage("Сумма"),
+    "fieldCommission": MessageLookupByLibrary.simpleMessage("Комиссия"),
+    "fieldDate": MessageLookupByLibrary.simpleMessage("Дата"),
+    "fieldEnd": MessageLookupByLibrary.simpleMessage("Окончание"),
+    "fieldPayment": MessageLookupByLibrary.simpleMessage("Способ оплаты"),
+    "fieldStart": MessageLookupByLibrary.simpleMessage("Начало"),
+    "formAmountPositive": MessageLookupByLibrary.simpleMessage(
+      "Сумма должна быть больше нуля",
+    ),
+    "formCommissionExceeds": MessageLookupByLibrary.simpleMessage(
+      "Комиссия не может быть больше суммы",
+    ),
+    "formEndAfterStart": MessageLookupByLibrary.simpleMessage(
+      "Окончание должно быть позже начала",
+    ),
+    "formInvalid": MessageLookupByLibrary.simpleMessage(
+      "Введите корректное число",
+    ),
+    "formInvalidTime": MessageLookupByLibrary.simpleMessage(
+      "Введите время как ЧЧ:ММ, например 08:30",
+    ),
+    "formRequired": MessageLookupByLibrary.simpleMessage("Заполните поле"),
+    "hintTimeFormat": MessageLookupByLibrary.simpleMessage("ЧЧ:ММ"),
     "paymentCard": MessageLookupByLibrary.simpleMessage("Карта"),
     "paymentCash": MessageLookupByLibrary.simpleMessage("Наличные"),
-    "tripsCountLabel": m3,
+    "tripAdded": MessageLookupByLibrary.simpleMessage("Поездка добавлена"),
+    "tripsCountLabel": m4,
   };
 }
