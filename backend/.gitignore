@@ -1,0 +1,29 @@
+# Окружение и секреты
+.venv/
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Инструменты
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Локальная БД
+*.db
+*.sqlite3
+
+# IDE и ОС
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
