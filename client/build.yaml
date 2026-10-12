@@ -1,0 +1,13 @@
+targets:
+  $default:
+    sources:
+      - swaggers/**
+      - lib/**
+      - $package$
+    builders:
+      swagger_dart_code_generator:
+        options:
+          input_folder: "swaggers/"
+          output_folder: "lib/swagger_generated_code/"
+          # Имена методов берём из operationId, а не из пути.
+          use_path_for_request_names: false
