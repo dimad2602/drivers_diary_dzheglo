@@ -3,12 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chopper/chopper.dart' as chopper;
-import 'package:driver_diary/data/api/interceptors/api_key_interceptor.dart';
 import 'package:driver_diary/data/repositories/trips_repo.dart';
 import 'package:driver_diary/domain/errors/trips_error.dart';
 import 'package:driver_diary/domain/models/payment_method.dart';
 import 'package:driver_diary/shared/models/result.dart';
-import 'package:driver_diary/shared/storage/api_key_store.dart';
 import 'package:driver_diary/swagger_generated_code/driver_diary.swagger.dart'
     as sw;
 import 'package:flutter_test/flutter_test.dart';
@@ -19,8 +17,6 @@ import 'package:mocktail/mocktail.dart';
 import '../helpers/fixtures.dart';
 
 class _MockApi extends Mock implements sw.DriverDiary {}
-
-class _MockApiKeyStore extends Mock implements ApiKeyStore {}
 
 chopper.Response<T> _response<T>(int status, [T? body]) =>
     chopper.Response<T>(http.Response('', status), body);
@@ -101,7 +97,6 @@ void main() {
       });
 
       for (final entry in {
-        401: TripsError.unauthorized,
         422: TripsError.validation,
         500: TripsError.server,
         503: TripsError.server,
@@ -118,11 +113,11 @@ void main() {
       }
 
       test('ошибка любого из двух запросов проваливает весь день', () async {
-        stubDay(summary: _response(401));
+        stubDay(summary: _response(500));
 
         expect(
           _errorOf(await repo.getDay(DateTime(2026, 10, 1))),
-          TripsError.unauthorized,
+          TripsError.server,
         );
       });
 
@@ -238,7 +233,6 @@ void main() {
       for (final entry in {
         409: TripsError.conflict,
         422: TripsError.validation,
-        401: TripsError.unauthorized,
       }.entries) {
         test('статус ${entry.key} → ${entry.value.name}', () async {
           when(() => api.createTrip(body: any(named: 'body')))
@@ -271,8 +265,6 @@ void main() {
     );
 
     TripsRepo createRepo(http.Response Function(http.Request) handler) {
-      final store = _MockApiKeyStore();
-      when(() => store.read()).thenAnswer((_) async => 'dev-key');
       final httpClient = MockClient((request) async {
         requests.add(request);
         return handler(request);
@@ -281,14 +273,13 @@ void main() {
         sw.DriverDiary.create(
           httpClient: httpClient,
           baseUrl: Uri.parse('http://test.local'),
-          interceptors: [ApiKeyInterceptor(store)],
         ),
       );
     }
 
     setUp(() => requests = []);
 
-    test('получает день: запрос, заголовок ключа и разбор ответа', () async {
+    test('получает день: запросы за нужную дату и разбор ответа', () async {
       repo = createRepo((request) {
         return request.url.path.endsWith('/summary')
             ? json({
@@ -336,7 +327,6 @@ void main() {
       expect(requests, hasLength(2));
       for (final request in requests) {
         expect(request.url.queryParameters['date'], '2026-10-01');
-        expect(request.headers['X-API-Key'], 'dev-key');
       }
     });
 

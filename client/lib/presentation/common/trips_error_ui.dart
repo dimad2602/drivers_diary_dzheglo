@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 extension TripsErrorUi on TripsError {
   String title(S l10n) => switch (this) {
     TripsError.noConnection => l10n.errorNoConnectionTitle,
-    TripsError.unauthorized => l10n.errorUnauthorizedTitle,
     TripsError.validation => l10n.errorValidationTitle,
     TripsError.conflict => l10n.errorConflictTitle,
     TripsError.server => l10n.errorServerTitle,
@@ -15,7 +14,6 @@ extension TripsErrorUi on TripsError {
 
   String message(S l10n) => switch (this) {
     TripsError.noConnection => l10n.errorNoConnectionMessage,
-    TripsError.unauthorized => l10n.errorUnauthorizedMessage,
     TripsError.validation => l10n.errorValidationMessage,
     TripsError.conflict => l10n.errorConflictMessage,
     TripsError.server => l10n.errorServerMessage,
@@ -24,7 +22,6 @@ extension TripsErrorUi on TripsError {
 
   IconData get icon => switch (this) {
     TripsError.noConnection => Icons.cloud_off_outlined,
-    TripsError.unauthorized => Icons.lock_outline,
     TripsError.validation => Icons.error_outline,
     TripsError.conflict => Icons.copy_all_outlined,
     TripsError.server => Icons.dns_outlined,

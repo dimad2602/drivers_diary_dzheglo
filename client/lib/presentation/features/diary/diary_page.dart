@@ -62,6 +62,11 @@ class DiaryView extends StatelessWidget {
               icon: const Icon(Icons.refresh),
               onPressed: () => bloc.add(const DiaryEvent.reloadRequested()),
             ),
+            IconButton(
+              tooltip: l10n.settingsTitle,
+              icon: const Icon(Icons.settings_outlined),
+              onPressed: () => context.push<void>(AppRoutes.settings),
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(

@@ -80,7 +80,6 @@ class TripsRepo implements ITripsRepo {
   }
 
   TripsError _errorForStatus(int status) => switch (status) {
-    401 => TripsError.unauthorized,
     409 => TripsError.conflict,
     422 => TripsError.validation,
     >= 500 => TripsError.server,

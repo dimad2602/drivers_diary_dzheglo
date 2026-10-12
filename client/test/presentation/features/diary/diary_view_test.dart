@@ -133,17 +133,6 @@ void main() {
       expect(find.byType(TripTile), findsNothing);
     });
 
-    testWidgets('неверный ключ показывает свой текст ошибки', (tester) async {
-      givenState(
-        DiaryState.failure(date: today, error: TripsError.unauthorized),
-      );
-
-      await pumpView(tester);
-
-      expect(find.text('Доступ запрещён'), findsOneWidget);
-      expect(find.text('API-ключ не задан или неверен.'), findsOneWidget);
-    });
-
     testWidgets('английский язык', (tester) async {
       givenState(success());
 

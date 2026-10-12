@@ -76,12 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Something went wrong on the server. Try again later.",
     ),
     "errorServerTitle": MessageLookupByLibrary.simpleMessage("Server error"),
-    "errorUnauthorizedMessage": MessageLookupByLibrary.simpleMessage(
-      "The API key is missing or incorrect.",
-    ),
-    "errorUnauthorizedTitle": MessageLookupByLibrary.simpleMessage(
-      "Access denied",
-    ),
     "errorUnknownMessage": MessageLookupByLibrary.simpleMessage(
       "The server sent an unexpected response. Try again.",
     ),
@@ -115,8 +109,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "formRequired": MessageLookupByLibrary.simpleMessage("Required field"),
     "hintTimeFormat": MessageLookupByLibrary.simpleMessage("HH:MM"),
+    "languageSystem": MessageLookupByLibrary.simpleMessage("System"),
     "paymentCard": MessageLookupByLibrary.simpleMessage("Card"),
     "paymentCash": MessageLookupByLibrary.simpleMessage("Cash"),
+    "settingsAppearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+    "settingsLanguage": MessageLookupByLibrary.simpleMessage("Language"),
+    "settingsTheme": MessageLookupByLibrary.simpleMessage("Theme"),
+    "settingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
+    "themeDark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "themeLight": MessageLookupByLibrary.simpleMessage("Light"),
+    "themeSystem": MessageLookupByLibrary.simpleMessage("System"),
     "tripAdded": MessageLookupByLibrary.simpleMessage("Trip added"),
     "tripsCountLabel": m4,
   };

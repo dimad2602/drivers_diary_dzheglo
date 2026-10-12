@@ -76,12 +76,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "На сервере что-то пошло не так. Повторите позже.",
     ),
     "errorServerTitle": MessageLookupByLibrary.simpleMessage("Ошибка сервера"),
-    "errorUnauthorizedMessage": MessageLookupByLibrary.simpleMessage(
-      "API-ключ не задан или неверен.",
-    ),
-    "errorUnauthorizedTitle": MessageLookupByLibrary.simpleMessage(
-      "Доступ запрещён",
-    ),
     "errorUnknownMessage": MessageLookupByLibrary.simpleMessage(
       "Сервер прислал неожиданный ответ. Повторите попытку.",
     ),
@@ -117,8 +111,16 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "formRequired": MessageLookupByLibrary.simpleMessage("Заполните поле"),
     "hintTimeFormat": MessageLookupByLibrary.simpleMessage("ЧЧ:ММ"),
+    "languageSystem": MessageLookupByLibrary.simpleMessage("Как в системе"),
     "paymentCard": MessageLookupByLibrary.simpleMessage("Карта"),
     "paymentCash": MessageLookupByLibrary.simpleMessage("Наличные"),
+    "settingsAppearance": MessageLookupByLibrary.simpleMessage("Внешний вид"),
+    "settingsLanguage": MessageLookupByLibrary.simpleMessage("Язык"),
+    "settingsTheme": MessageLookupByLibrary.simpleMessage("Тема"),
+    "settingsTitle": MessageLookupByLibrary.simpleMessage("Настройки"),
+    "themeDark": MessageLookupByLibrary.simpleMessage("Тёмная"),
+    "themeLight": MessageLookupByLibrary.simpleMessage("Светлая"),
+    "themeSystem": MessageLookupByLibrary.simpleMessage("Как в системе"),
     "tripAdded": MessageLookupByLibrary.simpleMessage("Поездка добавлена"),
     "tripsCountLabel": m4,
   };

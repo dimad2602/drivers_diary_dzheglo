@@ -327,6 +327,56 @@ class S {
     return Intl.message('Retry', name: 'actionRetry', desc: '', args: []);
   }
 
+  /// `Settings`
+  String get settingsTitle {
+    return Intl.message('Settings', name: 'settingsTitle', desc: '', args: []);
+  }
+
+  /// `Appearance`
+  String get settingsAppearance {
+    return Intl.message(
+      'Appearance',
+      name: 'settingsAppearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get settingsTheme {
+    return Intl.message('Theme', name: 'settingsTheme', desc: '', args: []);
+  }
+
+  /// `System`
+  String get themeSystem {
+    return Intl.message('System', name: 'themeSystem', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get themeLight {
+    return Intl.message('Light', name: 'themeLight', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get themeDark {
+    return Intl.message('Dark', name: 'themeDark', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get settingsLanguage {
+    return Intl.message(
+      'Language',
+      name: 'settingsLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get languageSystem {
+    return Intl.message('System', name: 'languageSystem', desc: '', args: []);
+  }
+
   /// `Refresh`
   String get actionRefresh {
     return Intl.message('Refresh', name: 'actionRefresh', desc: '', args: []);
@@ -347,26 +397,6 @@ class S {
     return Intl.message(
       'Check your connection and make sure the backend is running.',
       name: 'errorNoConnectionMessage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Access denied`
-  String get errorUnauthorizedTitle {
-    return Intl.message(
-      'Access denied',
-      name: 'errorUnauthorizedTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `The API key is missing or incorrect.`
-  String get errorUnauthorizedMessage {
-    return Intl.message(
-      'The API key is missing or incorrect.',
-      name: 'errorUnauthorizedMessage',
       desc: '',
       args: [],
     );

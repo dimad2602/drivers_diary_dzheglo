@@ -33,6 +33,7 @@ class AppTextField extends StatefulWidget {
 
   /// Кнопка справа внутри поля (например, значок выбора времени).
   final Widget? suffixIcon;
+
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputAction? textInputAction;

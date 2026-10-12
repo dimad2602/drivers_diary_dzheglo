@@ -1,15 +1,12 @@
 import 'package:driver_diary/app/routes/app_router.dart';
 import 'package:driver_diary/app/theme/cubit/locale_cubit.dart';
 import 'package:driver_diary/app/theme/cubit/theme_cubit.dart';
-import 'package:driver_diary/data/api/interceptors/api_key_interceptor.dart';
 import 'package:driver_diary/data/repositories/trips_repo.dart';
 import 'package:driver_diary/domain/repositories/i_trips_repo.dart';
 import 'package:driver_diary/presentation/bloc/add_trip/add_trip_bloc.dart';
 import 'package:driver_diary/presentation/bloc/diary/diary_bloc.dart';
-import 'package:driver_diary/shared/storage/api_key_store.dart';
 import 'package:driver_diary/shared/storage/constants.dart';
 import 'package:driver_diary/shared/storage/locale_storage.dart';
-import 'package:driver_diary/shared/storage/secure_storage.dart';
 import 'package:driver_diary/shared/storage/theme_storage.dart';
 import 'package:driver_diary/swagger_generated_code/driver_diary.swagger.dart'
     as sw;
@@ -25,25 +22,15 @@ Future<void> setupLocator() async {
   locator
     // Хранилища
     ..registerSingleton<SharedPreferences>(prefs)
-    ..registerLazySingleton<SecureStorage>(SecureStorage.new)
     ..registerLazySingleton<ThemeStorage>(
       () => ThemeStorage(locator<SharedPreferences>()),
     )
     ..registerLazySingleton<LocaleStorage>(
       () => LocaleStorage(locator<SharedPreferences>()),
     )
-    ..registerLazySingleton<ApiKeyStore>(
-      () => ApiKeyStore(
-        locator<SecureStorage>(),
-        defaultKey: Constants.defaultApiKey,
-      ),
-    )
     // API и репозитории
     ..registerLazySingleton<sw.DriverDiary>(
-      () => sw.DriverDiary.create(
-        baseUrl: Uri.parse(Constants.baseUrl),
-        interceptors: [ApiKeyInterceptor(locator<ApiKeyStore>())],
-      ),
+      () => sw.DriverDiary.create(baseUrl: Uri.parse(Constants.baseUrl)),
     )
     ..registerLazySingleton<ITripsRepo>(
       () => TripsRepo(locator<sw.DriverDiary>()),
