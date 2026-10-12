@@ -1,17 +1,24 @@
-# driver_diary
+# Клиент — Driver Diary (Flutter)
 
-A new Flutter project.
+Описание проекта, архитектуры и API — в [корневом README](../README.md).
 
-## Getting Started
+```bash
+flutter pub get
+flutter run -d windows            # или id эмулятора из `flutter devices`
+```
 
-This project is a starting point for a Flutter application.
+Адрес backend задаётся в `.env` (шаблон — `.env.example`). Сгенерированный код лежит в репозитории, перегенерировать его нужно только после правок:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+dart run build_runner build --delete-conflicting-outputs   # freezed, env.g.dart
+dart run intl_utils:generate                               # строки локализации
+dart run tool/generate_api.dart                            # API-клиент из swaggers/driver_diary.json
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Тесты и покрытие:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter analyze
+flutter test --coverage
+dart run tool/coverage.dart [--min=90] [--all]
+```
