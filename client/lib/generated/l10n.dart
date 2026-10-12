@@ -59,6 +59,278 @@ class S {
   String get appTitle {
     return Intl.message('Driver Diary', name: 'appTitle', desc: '', args: []);
   }
+
+  /// `Take-home`
+  String get diaryNetLabel {
+    return Intl.message('Take-home', name: 'diaryNetLabel', desc: '', args: []);
+  }
+
+  /// `Revenue`
+  String get diaryRevenue {
+    return Intl.message('Revenue', name: 'diaryRevenue', desc: '', args: []);
+  }
+
+  /// `Commission`
+  String get diaryCommission {
+    return Intl.message(
+      'Commission',
+      name: 'diaryCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trips`
+  String get diaryTripsCount {
+    return Intl.message('Trips', name: 'diaryTripsCount', desc: '', args: []);
+  }
+
+  /// `By payment method`
+  String get diaryByPayment {
+    return Intl.message(
+      'By payment method',
+      name: 'diaryByPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trips`
+  String get diaryTripsHeader {
+    return Intl.message('Trips', name: 'diaryTripsHeader', desc: '', args: []);
+  }
+
+  /// `{count, plural, one{{count} trip} other{{count} trips}}`
+  String tripsCountLabel(num count) {
+    return Intl.plural(
+      count,
+      one: '$count trip',
+      other: '$count trips',
+      name: 'tripsCountLabel',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `No trips`
+  String get diaryEmptyTitle {
+    return Intl.message(
+      'No trips',
+      name: 'diaryEmptyTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No trips were added for this day.`
+  String get diaryEmptyMessage {
+    return Intl.message(
+      'No trips were added for this day.',
+      name: 'diaryEmptyMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash`
+  String get paymentCash {
+    return Intl.message('Cash', name: 'paymentCash', desc: '', args: []);
+  }
+
+  /// `Card`
+  String get paymentCard {
+    return Intl.message('Card', name: 'paymentCard', desc: '', args: []);
+  }
+
+  /// `Today`
+  String get dayToday {
+    return Intl.message('Today', name: 'dayToday', desc: '', args: []);
+  }
+
+  /// `Yesterday`
+  String get dayYesterday {
+    return Intl.message('Yesterday', name: 'dayYesterday', desc: '', args: []);
+  }
+
+  /// `Previous day`
+  String get dayPrevious {
+    return Intl.message(
+      'Previous day',
+      name: 'dayPrevious',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next day`
+  String get dayNext {
+    return Intl.message('Next day', name: 'dayNext', desc: '', args: []);
+  }
+
+  /// `Choose a day`
+  String get dayPick {
+    return Intl.message('Choose a day', name: 'dayPick', desc: '', args: []);
+  }
+
+  /// `Retry`
+  String get actionRetry {
+    return Intl.message('Retry', name: 'actionRetry', desc: '', args: []);
+  }
+
+  /// `Refresh`
+  String get actionRefresh {
+    return Intl.message('Refresh', name: 'actionRefresh', desc: '', args: []);
+  }
+
+  /// `Can't reach the server`
+  String get errorNoConnectionTitle {
+    return Intl.message(
+      'Can\'t reach the server',
+      name: 'errorNoConnectionTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Check your connection and make sure the backend is running.`
+  String get errorNoConnectionMessage {
+    return Intl.message(
+      'Check your connection and make sure the backend is running.',
+      name: 'errorNoConnectionMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access denied`
+  String get errorUnauthorizedTitle {
+    return Intl.message(
+      'Access denied',
+      name: 'errorUnauthorizedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The API key is missing or incorrect.`
+  String get errorUnauthorizedMessage {
+    return Intl.message(
+      'The API key is missing or incorrect.',
+      name: 'errorUnauthorizedMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data rejected`
+  String get errorValidationTitle {
+    return Intl.message(
+      'Data rejected',
+      name: 'errorValidationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The server did not accept the values. Check them and try again.`
+  String get errorValidationMessage {
+    return Intl.message(
+      'The server did not accept the values. Check them and try again.',
+      name: 'errorValidationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip already exists`
+  String get errorConflictTitle {
+    return Intl.message(
+      'Trip already exists',
+      name: 'errorConflictTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A trip with this ID is already saved with different data.`
+  String get errorConflictMessage {
+    return Intl.message(
+      'A trip with this ID is already saved with different data.',
+      name: 'errorConflictMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server error`
+  String get errorServerTitle {
+    return Intl.message(
+      'Server error',
+      name: 'errorServerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong on the server. Try again later.`
+  String get errorServerMessage {
+    return Intl.message(
+      'Something went wrong on the server. Try again later.',
+      name: 'errorServerMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get errorUnknownTitle {
+    return Intl.message(
+      'Something went wrong',
+      name: 'errorUnknownTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The server sent an unexpected response. Try again.`
+  String get errorUnknownMessage {
+    return Intl.message(
+      'The server sent an unexpected response. Try again.',
+      name: 'errorUnknownMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{minutes} min`
+  String durationMinutes(Object minutes) {
+    return Intl.message(
+      '$minutes min',
+      name: 'durationMinutes',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `{hours} h`
+  String durationHours(Object hours) {
+    return Intl.message(
+      '$hours h',
+      name: 'durationHours',
+      desc: '',
+      args: [hours],
+    );
+  }
+
+  /// `{hours} h {minutes} min`
+  String durationHoursMinutes(Object hours, Object minutes) {
+    return Intl.message(
+      '$hours h $minutes min',
+      name: 'durationHoursMinutes',
+      desc: '',
+      args: [hours, minutes],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -4,6 +4,7 @@ import 'package:driver_diary/app/theme/cubit/theme_cubit.dart';
 import 'package:driver_diary/data/api/interceptors/api_key_interceptor.dart';
 import 'package:driver_diary/data/repositories/trips_repo.dart';
 import 'package:driver_diary/domain/repositories/i_trips_repo.dart';
+import 'package:driver_diary/presentation/bloc/diary/diary_bloc.dart';
 import 'package:driver_diary/shared/storage/api_key_store.dart';
 import 'package:driver_diary/shared/storage/constants.dart';
 import 'package:driver_diary/shared/storage/locale_storage.dart';
@@ -46,6 +47,8 @@ Future<void> setupLocator() async {
     ..registerLazySingleton<ITripsRepo>(
       () => TripsRepo(locator<sw.DriverDiary>()),
     )
+    // Bloc/Cubit экранов: новый на каждое открытие экрана
+    ..registerFactory<DiaryBloc>(() => DiaryBloc(locator<ITripsRepo>()))
     // Глобальные кубиты: живут всё время работы приложения
     ..registerLazySingleton<ThemeCubit>(
       () => ThemeCubit(locator<ThemeStorage>()),
